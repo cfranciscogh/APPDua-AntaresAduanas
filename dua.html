@@ -1,0 +1,140 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>APP - DUA</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" type="text/css" href="css/themes/default/jquery.mobile.theme-1.4.5.min.css">
+     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/funciones.js"></script>
+    <script src="js/consulta.js"></script>
+    
+    <style type="text/css">
+	#myPopup {
+		overflow:hidden;
+	}
+	.ui-input-text, .ui-input-search{
+		margin:.1em 0 !important;
+	}
+	.panelSinDatos, .panelDatos{
+		display:none;
+	}
+	.ui-page .ui-footer-fixed.ui-fixed-hidden{
+		position:fixed !important;
+	}
+	</style>
+</head>
+
+<body >
+
+
+<div data-role="page" class="fondo">
+
+	<div data-role="header" data-position="fixed" data-theme="a">
+		<h1 id="tituloEmpresa">Antares Aduanas</h1>
+	</div><!-- /header -->
+
+	<div id="contentProgramaciones" role="main" class="ui-content">
+
+     <table border="0"><tr>
+     <td width="115">Buscar Orden:</td>
+     <td width="40"><input type="text" readonly value="17" maxlength="2" name="serie_orden" id="serie_orden" />	</td>
+     <td>/</td>
+     <td>
+     <input type="text" max="8" name="numero_orden" id="numero_orden" pattern="[0-9]*" />	
+     </td>
+    </tr></table>
+    
+    <div class="panelDatos">
+    <h4 style="border-bottom:solid 1px #ccc; margin-bottom:10px;">Datos de la Orden:</h4>
+     <table border="0"><tr>
+     <td width="70"><label for="incidencia">Aduana:</label></td>
+     <td><input type="text" readonly name="orden_aduana" id="orden_aduana"  style="background-color:#e0e0e0;"/></td>     
+     <td width="70"><label for="incidencia">Regimen:</label></td>
+     <td><input type="text" readonly name="orden_regimen" id="orden_regimen"  style="background-color:#e0e0e0;"/></td>
+    </tr><tr>
+     <td width="70"><label for="incidencia">Cliente:</label></td>
+     <td colspan="3"><input type="text" readonly name="orden_cliente" id="orden_cliente"  style="background-color:#e0e0e0;"/>	</td>
+    </tr></table>
+    
+    <h4 style="border-bottom:solid 1px #ccc; margin-bottom:10px; margin:10px 0;">Actualizar Datos:</h4> 
+    
+    
+     <table border="0"><tr>
+     <td width="70"><label for="concluido">Nro Manifiesto:</label></td>
+     <td width="50">
+     <input type="text" readonly name="aduana_manifiesto" id="aduana_manifiesto" style="background-color:#e0e0e0;" />	</td>
+     
+     <td width="50">
+     <input type="text" readonly name="anno_manifiesto" id="anno_manifiesto" style="background-color:#e0e0e0;" />	
+     </td>
+      <td>
+     <input type="text" name="numero_manifiesto" id="numero_manifiesto" pattern="[0-9]*" />	
+     </td>
+    </tr></table>
+    
+    <table border="0" width="100%"><tr>
+    <td width="115"> <label for="incidencia">Emp. Transp.:</label>
+    <div style="display:none;">    	
+     	<input type="text" readonly name="emp_transporte" id="emp_transporte" />
+     </div></td>
+    <td><div class="autocompletePanel">
+       <ul class="autocomplete"  data-role="listview" data-inset="true" data-filter="true" 
+		  data-filter-placeholder="Ingresar Ruc/Razon Social"></ul>
+    </div></td>
+    </tr></table>
+     
+     <table border="0" width="100%"><tr>
+     <td width="115"><label for="incidencia">Nro Guia/BL:</label></td>
+     <td><input type="text" name="nro_guia_bl" id="nro_guia_bl" /></td>
+    </tr></table>
+     
+     <table border="0" width="100%"><tr>
+     <td width="115"><label for="incidencia">Dcto. Master:</label></td>
+     <td><input type="text" name="dcto_master" id="dcto_master" /></td>
+    </tr></table>
+     
+     <table border="0" width="100%"><tr>
+     <td width="115"><label for="incidencia">Tipo Descarga:</label></td>
+     <td><input type="text" readonly name="tipo_descarga" readonly id="tipo_descarga" style="background-color:#e0e0e0;" /></td>
+    </tr></table>
+    
+     <table border="0" width="100%"><tr>
+     <td width="115"><label for="incidencia">Tipo Embarque:</label></td>
+     <td><input type="text" readonly name="tipo_embarque" readonly id="tipo_embarque" style="background-color:#e0e0e0;" /> </td>
+    </tr></table>
+   <!-- <label for="observacion">Observación:</label>
+    <textarea rows="4" name="observacion" id="observacion"></textarea>-->
+     </div>
+     <div class="panelSinDatos">
+     	<h4 style="text-align:center;">No se encontro información</h4>
+     </div>   
+    
+    
+  
+      
+         
+        
+	</div><!-- /content -->
+
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar" data-iconpos="top">
+		<ul>
+			
+            <li><a id="buscar" data-icon="refresh">Buscar</a></li>
+            <li><a id="guardar" data-icon="check">Actualizar</a></li>
+            <!--<li><a id="liberar" data-icon="delete">Liberar</a></li>-->
+            
+            <li><a onClick="sesionFromApp();" data-ajax="false" data-icon="delete">Salir</a></li>          	
+            
+			<!--	-->		 
+		</ul>
+	</div><!-- /navbar -->
+	</div><!-- /footer -->
+</div><!-- /page -->
+
+
+</body>
+</html>
