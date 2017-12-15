@@ -24,6 +24,9 @@
 	.ui-page .ui-footer-fixed.ui-fixed-hidden{
 		position:fixed !important;
 	}
+	html .ui-filterable+.ui-listview, html .ui-filterable.ui-listview{
+		margin:0px;
+	}
 	</style>
 </head>
 
@@ -48,7 +51,7 @@
     </tr></table>
     
     <div class="panelDatos">
-    <h4 style="border-bottom:solid 1px #ccc; margin-bottom:10px;">Datos de la Orden:</h4>
+    <h4 style="border-bottom:solid 1px #ccc; margin-bottom:10px; margin-top:15px;">Datos de la Orden:</h4>
      <table border="0"><tr>
      <td width="70"><label for="incidencia">Aduana:</label></td>
      <td><input type="text" readonly name="orden_aduana" id="orden_aduana"  style="background-color:#e0e0e0;"/></td>     
@@ -75,11 +78,12 @@
      </td>
     </tr></table>
     
-    <table border="0" width="100%"><tr>
-    <td width="115"> <label for="incidencia">Emp. Transp.:</label>
+    <label for="incidencia">Empresa de Transporte:</label>
+    
     <div style="display:none;">    	
      	<input type="text" readonly name="emp_transporte" id="emp_transporte" />
-     </div></td>
+     </div>
+    <table border="0" width="100%"><tr> 
     <td><div class="autocompletePanel">
        <ul class="autocomplete"  data-role="listview" data-inset="true" data-filter="true" 
 		  data-filter-placeholder="Ingresar Ruc/Razon Social"></ul>

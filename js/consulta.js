@@ -82,7 +82,7 @@ $(document).ready(function(e) {
 
 function setGuardar(){
 	
-	if ( $("#numero_manifiesto").val() == "" || $("#numero_manifiesto").val() == "0" ){
+/*	if ( $("#numero_manifiesto").val() == "" || $("#numero_manifiesto").val() == "0" ){
 		alerta("Ingresar numero de manifiesto");
 		$("#numero_manifiesto").focus();
 		return;
@@ -105,7 +105,7 @@ function setGuardar(){
 		$("#dcto_master").focus();
 		return;
 	}
-	
+	*/
 	
 	var parametros = new Object();
 	parametros.usu = code_usuario;	
@@ -117,8 +117,8 @@ function setGuardar(){
 	parametros.empt = $('.autocompletePanel .ui-filterable input').val();	
 	parametros.guia = $("#nro_guia_bl").val();
 	parametros.master = $("#dcto_master").val();
-	parametros.tipdesc = $("#tipo_descarga").val();
-	parametros.tipemb = $("#tipo_embarque").val(); 
+	parametros.tipdesc = 0;//$("#tipo_descarga").val();
+	parametros.tipemb = 0;//$("#tipo_embarque").val(); 
  
 	//console.log(parametros);
 	//return;
@@ -131,10 +131,10 @@ function setGuardar(){
         data : JSON.stringify(parametros),
 		contentType: "application/json; charset=utf-8",
         success : function(data, textStatus, jqXHR) {
-			//console
+			//console.log(data.d);
 			resultado = $.parseJSON(data.d);
 			$.mobile.loading('hide');
-			 if ( resultado.code == 0){
+			 if ( resultado.code == 1){
 				/*$("#observacion").val("")
 				$("#cheque").val("")
 				$("#concluido").val();	
