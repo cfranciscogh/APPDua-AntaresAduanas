@@ -117,10 +117,10 @@ function setGuardar(){
 	parametros.empt = $('.autocompletePanel .ui-filterable input').val();	
 	parametros.guia = $("#nro_guia_bl").val();
 	parametros.master = $("#dcto_master").val();
-	parametros.tipdesc = 0;//$("#tipo_descarga").val();
-	parametros.tipemb = 0;//$("#tipo_embarque").val(); 
- 
-	console.log(parametros);
+	parametros.tipdesc = "";//$("#tipo_descarga").val();
+	parametros.tipemb = "";//$("#tipo_embarque").val(); 
+    parametros.aduana = $("#orden_aduana").val();	
+	//console.log(parametros);
 	//return;
 	$.mobile.loading('show'); 
 	$.ajax({
@@ -131,7 +131,7 @@ function setGuardar(){
         data : JSON.stringify(parametros),
 		contentType: "application/json; charset=utf-8",
         success : function(data, textStatus, jqXHR) {
-			console.log(data.d);
+			//"hola:" + console.log(data.d);
 			resultado = $.parseJSON(data.d);
 			$.mobile.loading('hide');
 			 if ( resultado.code == 1){
