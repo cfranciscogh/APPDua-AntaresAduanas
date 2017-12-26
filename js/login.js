@@ -99,7 +99,7 @@ function cargarUsuarios(){
 	$("#usuario").html("<option value='0'>Seleccionar Usuario</option>");
 	//$.mobile.loading('show'); 
 	$.ajax({
-        url : "http://www.meridian.com.pe/ServiciosMovil/AntaresAduanas/Autenticacion/Login.asmx/ListarAuxiliar",
+        url : "http://www.meridian.com.pe/ServiciosMovil/AntaresAduanas/Autenticacion/Login.asmx/ListarAuxiliarActDatos",
         type: "POST",
 		cache: false,
 		//crossDomain: true,

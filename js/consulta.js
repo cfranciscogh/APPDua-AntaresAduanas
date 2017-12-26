@@ -120,7 +120,7 @@ function setGuardar(){
 	parametros.tipdesc = 0;//$("#tipo_descarga").val();
 	parametros.tipemb = 0;//$("#tipo_embarque").val(); 
  
-	//console.log(parametros);
+	console.log(parametros);
 	//return;
 	$.mobile.loading('show'); 
 	$.ajax({
@@ -131,7 +131,7 @@ function setGuardar(){
         data : JSON.stringify(parametros),
 		contentType: "application/json; charset=utf-8",
         success : function(data, textStatus, jqXHR) {
-			//console.log(data.d);
+			console.log(data.d);
 			resultado = $.parseJSON(data.d);
 			$.mobile.loading('hide');
 			 if ( resultado.code == 1){
