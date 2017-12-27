@@ -22,7 +22,11 @@ $(document).ready(function(e) {
     });
 	
 	$("#guardar").click(function(e) {
-        setGuardar();
+		if ( $(".panelDatos").css("display") == "block" ){
+			if ( confirm("¿Desea continuar?") ){
+			 	setGuardar();
+			}
+		}
     });
 	
  	
@@ -178,7 +182,7 @@ function getProgramaciones(){
         success : function(data, textStatus, jqXHR) {
 		resultado = $.parseJSON(data.d);
 		
-			console.log(resultado);
+			//console.log(resultado);
 			$.mobile.loading('hide');
 			if ( resultado.length > 0 ){				
 				for (var i = 0; i<resultado.length;i++){
