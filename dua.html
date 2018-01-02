@@ -102,15 +102,30 @@
      
      <table border="0" width="100%"><tr>
      <td width="115"><label for="incidencia">Tipo Descarga:</label></td>
-     <td><input type="text" readonly name="tipo_descarga" readonly id="tipo_descarga" style="background-color:#e0e0e0;" /></td>
+     <td><select name="tipo_descarga" id="tipo_descarga" data-native-menu="false"></select></td>
     </tr></table>
     
      <table border="0" width="100%"><tr>
      <td width="115"><label for="incidencia">Tipo Embarque:</label></td>
-     <td><input type="text" readonly name="tipo_embarque" readonly id="tipo_embarque" style="background-color:#e0e0e0;" /> </td>
+     <td><select name="tipo_embarque" id="tipo_embarque" data-native-menu="false"></select></td>
     </tr></table>
    <!-- <label for="observacion">Observación:</label>
     <textarea rows="4" name="observacion" id="observacion"></textarea>-->
+    
+    <input type="hidden" name="numero_manifiesto_ant" id="numero_manifiesto_ant" value="" />
+    
+    <input type="hidden" name="emp_transporte_ant" id="emp_transporte_ant" value="" /> 
+    <input type="hidden" name="emp_transporte_ant_desc" id="emp_transporte_ant_desc" value="" /> 
+    
+    <input type="hidden" name="nro_guia_bl_ant" id="nro_guia_bl_ant" value="" />
+    <input type="hidden" name="dcto_master_ant" id="dcto_master_ant" value="" />
+    
+    
+    <input type="hidden" name="tipo_descarga_ant" id="tipo_descarga_ant" value="" />
+    <input type="hidden" name="tipo_embarque_ant" id="tipo_embarque_ant" value="" />    
+    <input type="hidden" name="tipo_descarga_ant_desc" id="tipo_descarga_ant_desc" value="" />
+    <input type="hidden" name="tipo_embarque_ant_desc" id="tipo_embarque_ant_desc" value="" />
+    
      </div>
      <div class="panelSinDatos">
      	<h4 style="text-align:center;">No se encontro información</h4>

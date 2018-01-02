@@ -27,10 +27,9 @@ $(document).ready(function(e) {
 			 	setGuardar();
 			}
 		}
-    });
-	
+    });	
  	
-	$( ".autocomplete" ).on( "listviewbeforefilter", function ( e, data ) {        
+	$( ".autocomplete" ).on( "listviewbeforefilter", function (e, data) {        
 		var $ul = $(this);                        // $ul refers to the shell unordered list under the input box
         var value = $(data.input).val();        // this is value of what user entered in input box
 		var dropdownContent = "" ;                // we use this value to collect the content of the dropdown
@@ -45,14 +44,11 @@ $(document).ready(function(e) {
 			 $.ajax({
 				url : "http://www.meridian.com.pe/ServiciosMovil/AntaresAduanas/Movil/WS_ActDUA.asmx/ListarEmpTrans",
 				type: "POST",
-				//crossDomain: true,
 				dataType : "json",
 				data : '{"codemp":"' + value + '", "tip": 1}',
-				//contentType: "xml",
 				contentType: "application/json; charset=utf-8",
 				success : function(data, textStatus, jqXHR) {
-				resultado = $.parseJSON(data.d);
-					 
+				resultado = $.parseJSON(data.d);					 
 					if ( resultado.length > 0 ){
 						var count = 0;
 						for (var i = 0; i<resultado.length;i++){
@@ -62,27 +58,77 @@ $(document).ready(function(e) {
 							$ul.trigger( "updatelayout"); 							 
 						}
 					} 
-				},
-		
+				},		
 				error : function(jqxhr) 
 				{
-				   //console.log(jqxhr);	
 				   alerta('Error de conexi\u00f3n, contactese con sistemas!');
 				}
 		
 			});		
-			 /* $.each(response, function( index, val ) {
-				dropdownContent += "<li>" + val + "</li>";
-				$ul.html( dropdownContent );
-				$ul.listview( "refresh" );
-				$ul.trigger( "updatelayout");  
-			  });*/
         }
       })
 
 	 
-	
+	CargarCombos();
 });	
+
+
+function CargarCombos(){
+		
+	$("#tipo_descarga").html("<option value=''>Seleccionar tipo descagar</option>");
+	$("#tipo_embarque").html("<option value='0'>Seleccionar tipo embarque</option>");
+	//$.mobile.loading('show'); 
+	$.ajax({
+        url : "http://www.meridian.com.pe/ServiciosMovil/AntaresAduanas/Movil/WS_ActDUA.asmx/ListarTipoEmb",
+        type: "POST",
+		cache: false,
+        dataType : "json",
+        //data : '{"Empresa":"'+empresa+'", "IDEstado" : '+idestado+'}',
+		contentType: "application/json; charset=utf-8",
+        success : function(data, textStatus, jqXHR) {
+			resultado = $.parseJSON(data.d);
+			//$.mobile.loading('hide');			 
+			if ( resultado.length > 0 ){				
+				for (var i = 0; i<resultado.length;i++){					
+					$("#tipo_embarque").append("<option value='"+resultado[i].TE_ID+"'>"+resultado[i].DESCP+"</option>");					
+				}
+				$("#tipo_embarque").selectmenu('refresh', true);
+			}
+			else{
+			}
+        },
+        error : function(jqxhr) 
+        {	
+          alerta('Error de conexi\u00f3n, contactese con sistemas!');
+        }
+    });	
+	
+	$.ajax({
+        url : "http://www.meridian.com.pe/ServiciosMovil/AntaresAduanas/Movil/WS_ActDUA.asmx/ListarTipoCarga",
+        type: "POST",
+		cache: false,
+        dataType : "json",
+        //data : '{"Empresa":"'+empresa+'", "IDEstado" : '+idestado+'}',
+		contentType: "application/json; charset=utf-8",
+        success : function(data, textStatus, jqXHR) {
+			resultado = $.parseJSON(data.d);
+			//$.mobile.loading('hide');			 
+			if ( resultado.length > 0 ){				
+				for (var i = 0; i<resultado.length;i++){					
+					$("#tipo_descarga").append("<option value='"+resultado[i].TD_CODIGO+"'>"+resultado[i].DESCRP+"</option>");					
+				}
+				$("#tipo_descarga").selectmenu('refresh', true);
+			}
+			else{
+			}
+        },
+        error : function(jqxhr) 
+        {	
+          alerta('Error de conexi\u00f3n, contactese con sistemas!');
+        }
+    });		 
+	
+}
 
 function setGuardar(){
 	
@@ -121,11 +167,27 @@ function setGuardar(){
 	parametros.empt = $('.autocompletePanel .ui-filterable input').val();	
 	parametros.guia = $("#nro_guia_bl").val();
 	parametros.master = $("#dcto_master").val();
-	parametros.tipdesc = "";//$("#tipo_descarga").val();
-	parametros.tipemb = "";//$("#tipo_embarque").val(); 
+	parametros.tipdesc = $("#tipo_descarga").val();
+	parametros.descarga = $("#tipo_descarga option:selected").val();
+	parametros.tipemb = $("#tipo_embarque").val(); 
+	parametros.tipemb = $("#tipo_embarque option:selected").val();
     parametros.aduana = $("#orden_aduana").val();	
-	//console.log(parametros);
-	//return;
+	
+	
+	parametros.tipembanterior = $("#tipo_embarque_ant").val(); 
+    parametros.tipdescanterior = $("#tipo_descarga_ant").val();	
+	parametros.descargaanterior = $("#tipo_descarga_ant_desc").val(); 
+    parametros.embarqueanterior = $("#tipo_embarque_ant_desc").val();	
+	
+	parametros.masteranterior = $("#dcto_master_ant").val();
+	parametros.guiaanterior = $("#nro_guia_bl_ant").val();
+	
+	parametros.duaanterior = $("#numero_manifiesto_ant").val();	
+	parametros.codempranterior = $("#emp_transporte_ant").val();	
+	parametros.emptanterior = $("#emp_transporte_ant_desc").val();	
+	
+    console.log(parametros);
+	return;
 	$.mobile.loading('show'); 
 	$.ajax({
         url : "http://www.meridian.com.pe/ServiciosMovil/AntaresAduanas/Movil/WS_ActDUA.asmx/Grabar",
@@ -182,7 +244,7 @@ function getProgramaciones(){
         success : function(data, textStatus, jqXHR) {
 		resultado = $.parseJSON(data.d);
 		
-			//console.log(resultado);
+			console.log(resultado);
 			$.mobile.loading('hide');
 			if ( resultado.length > 0 ){				
 				for (var i = 0; i<resultado.length;i++){
@@ -207,8 +269,22 @@ function getProgramaciones(){
 					//$("#emp_transporte").val($.trim(resultado[i].NOM_TRANS));
 					$("#nro_guia_bl").val($.trim(resultado[i].NROGUIA));
 					$("#dcto_master").val($.trim(resultado[i].DOC_MASTER));
+					
 					$("#tipo_descarga").val($.trim(resultado[i].TIP_DESCARGA));
-					$("#tipo_embarque").val($.trim(resultado[i].TIP_EMBARQUE));
+					$("#tipo_embarque").val($.trim(resultado[i].tip_certi));
+					
+					$("#tipo_embarque").selectmenu('refresh', true);
+					$("#tipo_descarga").selectmenu('refresh', true);					
+					
+					$("#numero_manifiesto_ant").val($.trim(resultado[i].NRO_MANIF));					
+					$("#emp_transporte_ant").val($.trim(resultado[i].EMP_TRANS));
+					$("#emp_transporte_ant_desc").val($.trim(resultado[i].NOM_TRANS));					
+					$("#nro_guia_bl_ant").val($.trim(resultado[i].NROGUIA));
+					$("#dcto_master_ant").val($.trim(resultado[i].DOC_MASTER));					
+					$("#tipo_descarga_ant").val($.trim(resultado[i].tipo_desc));
+					$("#tipo_embarque_ant").val($.trim(resultado[i].tip_certi));					
+					$("#tipo_descarga_ant_desc").val($.trim(resultado[i].TIP_DESCARGA));
+					$("#tipo_embarque_ant_desc").val($.trim(resultado[i].TIP_EMBARQUE));	
 					
 					$(".panelDatos").fadeIn("fast");
 				}
