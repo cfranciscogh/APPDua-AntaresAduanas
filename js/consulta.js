@@ -168,11 +168,10 @@ function setGuardar(){
 	parametros.guia = $("#nro_guia_bl").val();
 	parametros.master = $("#dcto_master").val();
 	parametros.tipdesc = $("#tipo_descarga").val();
-	parametros.descarga = $("#tipo_descarga option:selected").val();
+	parametros.descarga = $("#tipo_descarga option:selected").text();
 	parametros.tipemb = $("#tipo_embarque").val(); 
-	parametros.tipemb = $("#tipo_embarque option:selected").val();
-    parametros.aduana = $("#orden_aduana").val();	
-	
+	parametros.tpembarque = $("#tipo_embarque option:selected").text();
+    parametros.aduana = $("#orden_aduana").val();
 	
 	parametros.tipembanterior = $("#tipo_embarque_ant").val(); 
     parametros.tipdescanterior = $("#tipo_descarga_ant").val();	
@@ -187,11 +186,12 @@ function setGuardar(){
 	parametros.emptanterior = $("#emp_transporte_ant_desc").val();	
 	
     console.log(parametros);
-	return;
+	//return;
 	$.mobile.loading('show'); 
 	$.ajax({
         url : "http://www.meridian.com.pe/ServiciosMovil/AntaresAduanas/Movil/WS_ActDUA.asmx/Grabar",
-        type: "POST",
+        //url : "http://localhost:34927/AntaresAduanas/Movil/WS_ActDUA.asmx/Grabar",
+		type: "POST",
 		//crossDomain: true,
         dataType : "json",
         data : JSON.stringify(parametros),
@@ -215,6 +215,7 @@ function setGuardar(){
 
         error : function(jqxhr) 
         { 
+		   console.log(jqxhr);
           alerta('Error de conexi\u00f3n, contactese con sistemas!');
         }
 
