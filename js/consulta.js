@@ -9,7 +9,17 @@ var code_usuario = "";
     });
 	
 $(document).ready(function(e) {  
-	//getProgramaciones();
+	//getProgramaciones();	
+	// Return today's date and time
+	var currentTime = new Date()
+	// returns the month (from 0 to 11)
+	//var month = currentTime.getMonth() + 1
+	// returns the day of the month (from 1 to 31)
+	//var day = currentTime.getDate()
+	// returns the year (four digits)
+	var year = currentTime.getFullYear();
+	//console.log(year.toString().substring(2));
+	$("#serie_orden").val(year.toString().substring(2));
 	code_usuario = $.QueryString["user"];
 	//code_usuario = window.localStorage.getItem("code");
 	$("#buscar").click(function(e) {
@@ -69,7 +79,7 @@ $(document).ready(function(e) {
       })
 
 	 
-	CargarCombos();
+	//CargarCombos();
 });	
 
 
@@ -157,9 +167,17 @@ function setGuardar(){
 	}
 	*/
 	
-	var parametros = new Object();
+	var parametros = new Object();	
+	
+	parametros.orden = $("#serie_orden").val()	+ "/"  + $("#numero_orden").val();
+	parametros.aduana = $("#orden_aduana").val();
+	parametros.duaanterior = $("#numero_manifiesto_ant").val();	
+	parametros.dua = $("#numero_manifiesto").val();
+	parametros.master = $("#dcto_master").val();
+	parametros.masteranterior = $("#dcto_master_ant").val();
 	parametros.usu = code_usuario;	
 	
+	/*
 	parametros.orden = $("#serie_orden").val()	+ "/"  + $("#numero_orden").val();	;
 	parametros.dua = $("#numero_manifiesto").val();	
 	
@@ -184,6 +202,7 @@ function setGuardar(){
 	parametros.duaanterior = $("#numero_manifiesto_ant").val();	
 	parametros.codempranterior = $("#emp_transporte_ant").val();	
 	parametros.emptanterior = $("#emp_transporte_ant_desc").val();	
+	*/
 	
     console.log(parametros);
 	//return;
@@ -243,56 +262,69 @@ function getProgramaciones(){
         //contentType: "xml",
 		contentType: "application/json; charset=utf-8",
         success : function(data, textStatus, jqXHR) {
-		resultado = $.parseJSON(data.d);
-		
-			console.log(resultado);
 			$.mobile.loading('hide');
-			if ( resultado.length > 0 ){				
-				for (var i = 0; i<resultado.length;i++){
-					//var nroOrden = resultado[i].nombre;		
-					//nroOrden = nroOrden.toString().substring(0,11);		
-					//$("#ordenes").append("<option value='"+ $.trim(resultado[i].orden)+"'>"+ $.trim(resultado[i].nombre)+"</option>");		
-					
-					var nro_orden = $.trim(resultado[i].NRO_ORDEN)
-					var arrOrden = nro_orden.split("/");
-					$("#numero_orden").val(arrOrden[1]);
-					//console.log(arrOrden[1]);
-					
-					$("#orden_aduana").val($.trim(resultado[i].CODI_ADUA));
-					$("#orden_regimen").val($.trim(resultado[i].REGI_PROC));
-					$("#orden_cliente").val($.trim(resultado[i].NOMB_CLTE));					
-					$("#aduana_manifiesto").val($.trim(resultado[i].ADU_MANIF));
-					$("#anno_manifiesto").val($.trim(resultado[i].ANO_MANIF));
-					$("#numero_manifiesto").val($.trim(resultado[i].NRO_MANIF));
-					
-					$("#emp_transporte").val($.trim(resultado[i].EMP_TRANS));
-					$('.autocompletePanel .ui-filterable input').val(resultado[i].NOM_TRANS);   
-					//$("#emp_transporte").val($.trim(resultado[i].NOM_TRANS));
-					$("#nro_guia_bl").val($.trim(resultado[i].NROGUIA));
-					$("#dcto_master").val($.trim(resultado[i].DOC_MASTER));
-					
-					$("#tipo_descarga").val($.trim(resultado[i].TIP_DESCARGA));
-					$("#tipo_embarque").val($.trim(resultado[i].tip_certi));
-					
-					$("#tipo_embarque").selectmenu('refresh', true);
-					$("#tipo_descarga").selectmenu('refresh', true);					
-					
-					$("#numero_manifiesto_ant").val($.trim(resultado[i].NRO_MANIF));					
-					$("#emp_transporte_ant").val($.trim(resultado[i].EMP_TRANS));
-					$("#emp_transporte_ant_desc").val($.trim(resultado[i].NOM_TRANS));					
-					$("#nro_guia_bl_ant").val($.trim(resultado[i].NROGUIA));
-					$("#dcto_master_ant").val($.trim(resultado[i].DOC_MASTER));					
-					$("#tipo_descarga_ant").val($.trim(resultado[i].tipo_desc));
-					$("#tipo_embarque_ant").val($.trim(resultado[i].tip_certi));					
-					$("#tipo_descarga_ant_desc").val($.trim(resultado[i].TIP_DESCARGA));
-					$("#tipo_embarque_ant_desc").val($.trim(resultado[i].TIP_EMBARQUE));	
-					
-					$(".panelDatos").fadeIn("fast");
+			console.log(data.d);
+			resultado = $.parseJSON(data.d);
+		
+			//console.log(resultado);
+			
+			if ( resultado.code == 1){	
+				var arrOrden = resultado.message
+				console.log(arrOrden);
+				if ( arrOrden.length > 0 ){				
+					for (var i = 0; i<arrOrden.length;i++){
+						//var nroOrden = resultado[i].nombre;		
+						//nroOrden = nroOrden.toString().substring(0,11);		
+						//$("#ordenes").append("<option value='"+ $.trim(resultado[i].orden)+"'>"+ $.trim(resultado[i].nombre)+"</option>");
+						var nro_orden = $.trim(arrOrden[i].NRO_ORDEN)
+						var arrOrdenSintad = nro_orden.split("/");
+						$("#numero_orden").val(arrOrdenSintad[1]);
+						//console.log(arrOrden[1]);
+						$("#orden_aduana").val($.trim(arrOrden[i].CODI_ADUA));
+						$("#orden_regimen").val($.trim(arrOrden[i].REGI_PROC));
+						$("#orden_cliente").val($.trim(arrOrden[i].NOMB_CLTE));					
+						$("#aduana_manifiesto").val($.trim(arrOrden[i].ADU_MANIF));
+						$("#anno_manifiesto").val($.trim(arrOrden[i].ANO_MANIF));
+						$("#numero_manifiesto").val($.trim(arrOrden[i].NRO_MANIF));
+
+						//$("#emp_transporte").val($.trim(arrOrden[i].EMP_TRANS));
+						//$('.autocompletePanel .ui-filterable input').val(arrOrden[i].NOM_TRANS);   
+						//$("#emp_transporte").val($.trim(resultado[i].NOM_TRANS));
+						$("#nro_guia_bl").val($.trim(arrOrden[i].NROGUIA));
+						$("#dcto_master").val($.trim(arrOrden[i].DOC_MASTER));
+
+						//$("#tipo_descarga").val($.trim(arrOrden[i].TIP_DESCARGA));
+						//$("#tipo_embarque").val($.trim(arrOrden[i].tip_certi));
+
+						//$("#tipo_embarque").selectmenu('refresh', true);
+						//$("#tipo_descarga").selectmenu('refresh', true);					
+
+						$("#numero_manifiesto_ant").val($.trim(arrOrden[i].NRO_MANIF));					
+						//$("#emp_transporte_ant").val($.trim(arrOrden[i].EMP_TRANS));
+						//$("#emp_transporte_ant_desc").val($.trim(arrOrden[i].NOM_TRANS));					
+						//$("#nro_guia_bl_ant").val($.trim(arrOrden[i].NROGUIA));
+						$("#dcto_master_ant").val($.trim(arrOrden[i].DOC_MASTER));	
+						
+						$("#dt_puerto").val($.trim(arrOrden[i].DT_PUERTO));	
+						$("#linea_aerea").val($.trim(arrOrden[i].NOM_TRANS));	
+						$("#cant_bultos").val($.trim(arrOrden[i].CANT_BULT));	
+						$("#peso").val($.trim(arrOrden[i].KLS_BRUTO + " KG.")); 
+						//$("#tipo_descarga_ant").val($.trim(arrOrden[i].tipo_desc));
+						//$("#tipo_embarque_ant").val($.trim(arrOrden[i].tip_certi));					
+						//$("#tipo_descarga_ant_desc").val($.trim(arrOrden[i].TIP_DESCARGA));
+						//$("#tipo_embarque_ant_desc").val($.trim(arrOrden[i].TIP_EMBARQUE));	
+
+						$(".panelDatos").fadeIn("fast");
+					}
+					//$("#ordenes").selectmenu('refresh', true);
 				}
-				//$("#ordenes").selectmenu('refresh', true);
+				else{
+					$(".panelSinDatos").fadeIn("fast");
+				}
 			}
 			else{
 				$(".panelSinDatos").fadeIn("fast");
+				alerta(resultado.message);
 			}
         },
 
