@@ -9,7 +9,7 @@
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery.mobile-1.4.5.min.js"></script>
     <script src="js/funciones.js"></script>
-    <script src="js/consulta.js"></script>
+    <script src="js/consulta.js?v=1.0"></script>
     
     <style type="text/css">
 	#myPopup {
@@ -44,7 +44,7 @@
 
      <table border="0"><tr>
      <td width="115">Buscar Orden:</td>
-     <td width="40"><input type="text" readonly value="17" maxlength="2" name="serie_orden" id="serie_orden" />	</td>
+     <td width="40"><input type="text" value="" maxlength="2" name="serie_orden" id="serie_orden" />	</td>
      <td>/</td>
      <td>
      <input type="text" max="8" name="numero_orden" id="numero_orden" pattern="[0-9]*" />	
@@ -67,7 +67,7 @@
     
     
      <table border="0"><tr>
-     <td width="70"><label for="concluido">Nro Manifiesto:</label></td>
+     <td width="100"><label for="concluido">Nro Manifiesto:</label></td>
      <td width="50">
      <input type="text" readonly name="aduana_manifiesto" id="aduana_manifiesto" style="background-color:#e0e0e0;" />	</td>
      
@@ -79,29 +79,50 @@
      </td>
     </tr></table>
     
-    <label for="incidencia">Empresa de Transporte:</label>
+    <!--<label for="incidencia">Empresa de Transporte:</label>-->
     
     <div style="display:none;">    	
      	<input type="text" readonly name="emp_transporte" id="emp_transporte" />
      </div>
-    <table border="0" width="100%"><tr> 
+    <!--<table border="0" width="100%"><tr> 
     <td><div class="autocompletePanel">
        <ul class="autocomplete"  data-role="listview" data-inset="true" data-filter="true" 
 		  data-filter-placeholder="Ingresar Ruc/Razon Social"></ul>
     </div></td>
-    </tr></table>
-     
+    </tr></table>-->
+    
+    
      <table border="0" width="100%"><tr>
-     <td width="115"><label for="incidencia">Nro Guia/BL:</label></td>
-     <td><input type="text" name="nro_guia_bl" id="nro_guia_bl" /></td>
-    </tr></table>
-     
-     <table border="0" width="100%"><tr>
-     <td width="115"><label for="incidencia">Dcto. Master:</label></td>
+     <td width="100"><label for="incidencia">Dcto. Master:</label></td>
      <td><input type="text" name="dcto_master" id="dcto_master" /></td>
     </tr></table>
      
      <table border="0" width="100%"><tr>
+     <td width="100"><label for="nro_guia_bl">Nro Guia/BL:</label></td>
+     <td><input type="text" readonly name="nro_guia_bl" id="nro_guia_bl" /></td>
+    </tr></table>
+    
+    <table border="0" width="100%"><tr>
+     <td width="100"><label for="dt_puerto">DT / Puerto:</label></td>
+     <td><input type="text" readonly name="dt_puerto" id="dt_puerto" style="background-color:#e0e0e0;"/></td>
+    </tr></table>
+    
+    <table border="0"><tr>
+     <td width="100"><label for="cant_bultos">Cant. Bultos:</label></td>
+     <td><input type="text" readonly name="cant_bultos" id="cant_bultos"  style="background-color:#e0e0e0;"/></td>     
+     <td width="70"><label for="peso">Peso:</label></td>
+     <td><input type="text" readonly name="peso" id="peso"  style="background-color:#e0e0e0;"/></td>
+    </tr>
+	</table>
+    
+    <table border="0" width="100%"><tr>
+     <td width="100"><label for="linea_aerea">Linea Áerea:</label></td>
+     <td><input type="text" readonly name="linea_aerea" id="linea_aerea" style="background-color:#e0e0e0;"/></td>
+    </tr></table>
+     
+    
+     
+    <!-- <table border="0" width="100%"><tr>
      <td><label for="incidencia">Tipo Descarga:</label></td></tr><tr>
      <td><select name="tipo_descarga" id="tipo_descarga" data-native-menu="false"></select></td>
     </tr></table>
@@ -109,7 +130,7 @@
      <table border="0" width="100%"><tr>
      <td><label for="incidencia">Tipo Embarque:</label></td></tr><tr>
      <td><select name="tipo_embarque" id="tipo_embarque" data-native-menu="false"></select></td>
-    </tr></table>
+    </tr></table>-->
    <!-- <label for="observacion">Observación:</label>
     <textarea rows="4" name="observacion" id="observacion"></textarea>-->
     
